@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="twitter_tweet_form_view" model="ir.ui.view">
+        <field name="name">twitter.tweet.list</field>
+        <field name="model">twitter.tweet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="twitter_screen_id"/>
+                <field name="author"/>
+                <field name="body"/>
+                <field name="likes"/>
+                <field name="retweets"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="twitter_tweet_search_view" model="ir.ui.view">
+        <field name="name">twitter.tweet.search</field>
+        <field name="model">twitter.tweet</field>
+        <field name="arch" type="xml">
+            <search string="Search Tweet">
+                <field name="author"/>
+                <field name="twitter_screen_id"/>
+                <field name="body"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_author" string="Author" context="{'group_by':'author'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_twitter_tweet_tree_view" model="ir.actions.act_window">
+        <field name="name">Tweets</field>
+        <field name="res_model">twitter.tweet</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_by_author': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Synchronize the screen desired to have its tweets here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_twitter_tweet_tree_view_screen" model="ir.actions.act_window">
+        <field name="name">Tweets</field>
+        <field name="res_model">twitter.tweet</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_twitter_screen_id': active_id}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Synchronize the screen desired to have its tweets here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_twitter_tweet"
+              name="Tweets"
+              parent="menu_twitter"
+              sequence="2"
+              groups="twitter.group_twitter_user"/>
+
+    <menuitem id="menu_twitter_tweet_action"
+              name="Tweets"
+              action="action_twitter_tweet_tree_view"
+              parent="menu_twitter_tweet"
+              groups="twitter.group_twitter_user"
+              sequence="1"/>
+</odoo>

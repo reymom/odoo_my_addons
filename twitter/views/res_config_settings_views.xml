@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.twitter</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Twitter Settings" string="Twitter" data-key="twitter_settings">
+                    <div id="twitter">
+                        <h2>Twitter</h2>
+                        <div class="row mt24 o_settings_container" id="twitter_container">
+                            <div class="col-24 col-lg-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_twitter"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label string="Twitter" for="module_twitter"/>
+                                    <div class="text-muted">
+                                        Synchronize, Visualize and Manage Tweets.
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('module_twitter','=',False)]}" id="msg_module_twitter">
+                                        <label for="twitter_consumer_key" class="col-6 col-lg-6 o_light_label"/>
+                                        <field name="twitter_consumer_key" nolabel="1"/>
+                                        <label for="twitter_consumer_secret" class="col-12 col-lg-12 o_light_label"/>
+                                        <field name="twitter_consumer_secret" password="True" nolabel="1"/>
+                                        <label for="twitter_access_token_key" class="col-12 col-lg-12 o_light_label"/>
+                                        <field name="twitter_access_token_key" nolabel="1"/>
+                                        <label for="twitter_access_token_secret" class="col-12 col-lg-12 o_light_label"/>
+                                        <field name="twitter_access_token_secret" password="True" nolabel="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_twitter_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="menu_twitter_config"
+              name="Configuration"
+              parent="menu_twitter"
+              sequence="99"/>
+
+    <menuitem id="menu_action_twitter_config_settings"
+              name="Settings"
+              parent="menu_twitter_config"
+              sequence="0"
+              action="action_twitter_config_settings"
+              groups="base.group_system"/>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Twitter"
+              id="menu_twitter"
+              groups="group_twitter_manager,group_twitter_user"
+              web_icon="twitter,static/description/icon.png"
+              sequence="99"/>
+</odoo>

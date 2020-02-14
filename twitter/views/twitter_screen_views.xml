@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="twitter_screen_form_view" model="ir.ui.view">
+        <field name="name">twitter.screen.form</field>
+        <field name="model">twitter.screen</field>
+        <field name="arch" type="xml">
+            <form string="Twitter Screen Form">
+                <header>
+                    <button type="object" name="count_screen_stats" string="Count Stats" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                type="action"
+                                name="%(action_twitter_tweet_tree_view_screen)d"
+                                icon="fa-twitter">
+                            <div class="o_stat_info">
+                                <field name="count_screen_tweets"/>
+                                <span class="o_stat_text">Tweets</span>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1 class="d-flex flex-row">
+                            <field name="name" string="Name" class="mr-3"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="description"/>
+                        <group>
+                            <field name="count_following"/>
+                            <field name="count_followers"/>
+                        </group>
+                        <field name="active" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page name="tweets" string="Tweets">
+                            <group>
+                                <field name="count_screen_tweets" string="Total Tweets"/>
+                            </group>
+                            <field name="twitter_tweets_ids" widget="one2many">
+                                <tree>
+                                    <field name="body"/>
+                                    <field name="likes"/>
+                                    <field name="retweets"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="twitter_screen_tree_view" model="ir.ui.view">
+        <field name="name">twitter.screen.tree</field>
+        <field name="model">twitter.screen</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="count_screen_tweets"/>
+                <field name="count_following"/>
+                <field name="count_followers"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    <record id="twitter_screen_kanban_view" model="ir.ui.view">-->
+<!--        <field name="name">twitter.screen.kanban</field>-->
+<!--        <field name="model">twitter.screen</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_project_kanban"-->
+<!--                    on_create="rgb_saas.action_saas_sites_create">-->
+<!--                <field name="name"/>-->
+<!--                <field name="decription"/>-->
+<!--                <field name="count_screen_tweets"/>-->
+<!--                <field name="count_following"/>-->
+<!--                <field name="count_followers"/>-->
+<!--                <field name="twitter_tweets_ids"/>-->
+<!--                <templates>-->
+<!--                    <t t-name="kanban-box">-->
+<!--                        <div class="oe_kanban_global_click o_has_icon">-->
+<!--                            <div class="o_project_kanban_main">-->
+<!--                                <div class="o_kanban_card_content">-->
+<!--                                    <div class="o_kanban_primary_left">-->
+<!--                                        <div class="o_primary">-->
+<!--                                            <span><t t-esc="record.name.value"/></span>-->
+<!--                                            <span>[<t t-esc="record.description.value"/>]</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="o_dropdown_kanban dropdown" tabindex="-1">-->
+<!--                                        <a class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"-->
+<!--                                           data-display="static"-->
+<!--                                           href="#" role="button" aria-label="Dropdown menu" title="Dropdown menu">-->
+<!--                                            <span class="fa fa-ellipsis-v"/>-->
+<!--                                        </a>-->
+<!--                                        <div class="dropdown-menu" role="menu">-->
+<!--                                            <a t-if="widget.editable" role="menuitem" type="edit"-->
+<!--                                               class="dropdown-item">Edit Tweet</a>-->
+<!--                                            <a t-if="widget.deletable" role="menuitem" type="delete"-->
+<!--                                               class="dropdown-item">Delete</a>-->
+<!--                                            <ul class="oe_kanban_colorpicker" data-field="color"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="o_project_kanban_boxes">-->
+<!--                                <div align="center">-->
+<!--                                    <span><t t-esc="record.url.value"/></span>-->
+<!--                                </div>-->
+<!--                                <div align="center">-->
+<!--                                    <t t-if="record.description.value"><span>-->
+<!--                                        <i class="fa fa-quote-left" role="img" aria-label="Description"-->
+<!--                                           title="Description"/>-->
+<!--                                        <t t-esc="record.description.value"/></span>-->
+<!--                                        <i class="fa fa-quote-right" role="img" aria-label="Description"-->
+<!--                                           title="Description"/>-->
+<!--                                    </t>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="o_kanban_record_bottom">-->
+<!--                                <div class="oe_kanban_bottom_left">-->
+<!--                                    <a name="%(action_saas_user_tree_view_site)d" type="action">-->
+<!--                                        <div>-->
+<!--                                            <span class="o_value"><t t-esc="record.count_total_users.value"/></span>-->
+<!--                                            <span class="o_label"><t t-esc="record.count_total_users.string"/></span>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="oe_kanban_bottom_right">-->
+<!--                                    <img t-att-src="kanban_image('res.partner', 'image', record.customer_id.raw_value)"-->
+<!--                                         t-att-title="record.customer_id.value"-->
+<!--                                         t-att-alt="record.customer_id.value"-->
+<!--                                         width="48" height="48"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--            </kanban>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_twitter_screen_kanban" model="ir.actions.act_window">-->
+<!--        <field name="name">Twitter Screens</field>-->
+<!--        <field name="res_model">twitter.screen</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="domain">[]</field>-->
+<!--        <field name="view_mode">kanban,form</field>-->
+<!--        <field name="view_id" ref="twitter_screen_kanban_view"/>-->
+<!--        <field name="search_view_id" ref="saas_sites_search_view"/>-->
+<!--        <field name="context">{'search_default_open_sites': 1}</field>-->
+<!--        <field name="target">main</field>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                Click create to set up new sites.-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_saas_sites_synchronize" model="ir.actions.server">
+        <field name="name">Synchronize Last Tweets</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="twitter.model_twitter_screen"/>
+        <field name="binding_model_id" ref="twitter.model_twitter_screen"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_get_tweets()
+        </field>
+    </record>
+
+    <record id="action_twitter_screen_tree" model="ir.actions.act_window">
+        <field name="name">Twitter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">twitter.screen</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click create to configure new twitter screens.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_twitter_screen_control"
+              name="Control"
+              action="action_twitter_screen_tree"
+              parent="menu_twitter"
+              groups="twitter.group_twitter_user"
+              sequence="1"/>
+</odoo>
