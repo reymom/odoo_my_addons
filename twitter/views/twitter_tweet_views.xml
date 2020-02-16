@@ -41,6 +41,64 @@
         </field>
     </record>
 
+    <record id="twitter_tweet_kanban_view" model="ir.ui.view">
+        <field name="name">twitter.tweet.kanban</field>
+        <field name="model">twitter.tweet</field>
+        <field name="arch" type="xml">
+                <kanban default_group_by="twitter_screen_id" class="o_kanban_mobile">
+                <field name="twitter_screen_id"/>
+                <field name="date_creation"/>
+                <field name="author"/>
+                <field name="body"/>
+                <field name="likes"/>
+                <field name="retweets"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_has_icon">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <img t-att-src="kanban_image('twitter.screen', 'image', record.twitter_screen_id.raw_value)"
+                                         t-att-title="record.twitter_screen_id.value"
+                                         t-att-alt="record.twitter_screen_id.value"
+                                         class="oe_kanban_avatar float-right"/>
+                                    <div class="o_kanban_record_body">
+                                        <t t-esc="record.body.raw_value"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_body oe_kanban_global_click">
+                                <a t-att-href="record.link">See Tweet</a>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span><i class='fa fa-retweet' role="img" aria-label="Retweets"/>
+                                        <t t-raw="record.retweets.raw_value"/></span>
+                                </div>
+                                <div class="oe_kanban_inline_block">
+                                    <span><i class='fa fa-heart-o' role="img" aria-label="Likes"/>
+                                        <t t-raw="record.likes.raw_value"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_twitter_tweet_kanban" model="ir.actions.act_window">
+        <field name="name">Twitter</field>
+        <field name="res_model">twitter.tweet</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="twitter_tweet_kanban_view"/>
+        <field name="search_view_id" ref="twitter_tweet_search_view"/>
+        <!-- <field name="context">{'search_default_open_sites': 1}</field> -->
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> Synchronize tweets in the action of the Screens.</p>
+        </field>
+    </record>
+
     <record id="action_twitter_tweet_tree_view_screen" model="ir.actions.act_window">
         <field name="name">Tweets</field>
         <field name="res_model">twitter.tweet</field>
@@ -52,12 +110,6 @@
             </p>
         </field>
     </record>
-
-    <menuitem id="menu_twitter_tweet"
-              name="Tweets"
-              parent="menu_twitter"
-              sequence="2"
-              groups="twitter.group_twitter_user"/>
 
     <menuitem id="menu_twitter_tweet_action"
               name="Tweets"

@@ -1,4 +1,6 @@
+import base64
 import logging
+import urllib.request
 
 import twitter
 from twitter import TwitterError
@@ -11,8 +13,11 @@ class TwitterScreen(models.Model):
     _name = 'twitter.screen'
     _description = 'Twitter Screen'
 
-    name = fields.Text(
+    screen = fields.Text(
         help='Twitter Screen Search'
+    )
+    name = fields.Text(
+        help='Name on Twitter'
     )
     description = fields.Text(
         help='Official Account Description'
@@ -40,24 +45,27 @@ class TwitterScreen(models.Model):
 
     def count_screen_stats(self):
         api = self._get_api()
-        last_tweet = api.GetUserTimeline(
-            screen_name=self.name,
-            count=1
-        )[0].AsDict()
-        count_screen_tweets = last_tweet['user']['listed_count']
-        count_following = last_tweet['user']['friends_count']
-        count_followers = last_tweet['user']['followers_count']
-        description = last_tweet['user']['description']
-        image_url = last_tweet['user']['profile_image_url']
+        screen_stats = api.GetUser(
+            screen_name=self.screen,
+        ).AsDict()
+        keys = screen_stats.keys()
+        name = screen_stats['name']
+        description = screen_stats['description'] if 'description' in keys else None
+        image_url = screen_stats['profile_image_url'] if 'profile_image_url' in keys else None
+        image_data = urllib.request.urlopen(image_url).read()
+        count_screen_tweets = screen_stats['listed_count'] if 'listed_count' in keys else None
+        count_following = screen_stats['friends_count'] if 'friends_count' in keys else None
+        count_followers = screen_stats['followers_count'] if 'followers_count' in keys else None
         self.update({
+            'name': name,
+            'description': description,
+            'image': base64.encodestring(image_data),
             'count_screen_tweets': count_screen_tweets,
             'count_following': count_following,
-            'count_followers': count_followers,
-            'description': description,
-            # 'image': base64 encoding from url
+            'count_followers': count_followers
         })
 
-    def _get_api(self):
+    def _get_api(self, tweet_mode=None):
         try:
             params = self.env['ir.config_parameter'].sudo()
             twitter_consumer_key = params.get_param('media_connector.twitter_consumer_key')
@@ -65,7 +73,8 @@ class TwitterScreen(models.Model):
             twitter_access_token_key = params.get_param('media_connector.twitter_access_token_key')
             twitter_access_token_secret = params.get_param('media_connector.twitter_access_token_secret')
             api = twitter.Api(
-                twitter_consumer_key, twitter_consumer_secret, twitter_access_token_key, twitter_access_token_secret
+                twitter_consumer_key, twitter_consumer_secret, twitter_access_token_key, twitter_access_token_secret,
+                tweet_mode=tweet_mode
             )
             api.VerifyCredentials()
             return api
@@ -77,24 +86,33 @@ class TwitterScreen(models.Model):
             rec._get_tweets()
 
     def _get_tweets(self):
-        api = self._get_api()
+        api = self._get_api(tweet_mode='extended')
         timeline = api.GetUserTimeline(
-            screen_name=self.name,
+            screen_name=self.screen,
+            include_rts=False,
             count=10
         )
         tweets = [i.AsDict() for i in timeline]
         tweet_obj = self.env['twitter.tweet']
+        twitter_end = 'https://t.co/'
+        self.twitter_tweets_ids.unlink()
         for t in tweets:
-            if 'retweeted_status' in t.keys():
+            print(t)
+            try:
+                id_str = t['id_str']
                 date_creation = t['created_at']
-                likes = t['retweeted_status']['favorite_count']
+                likes = t['favorite_count']
                 retweets = t['retweet_count']
-                body = t['text']
+                content = t['full_text'].split(twitter_end)
                 tweet_obj.create({
                     'twitter_screen_id': self.id,
+                    'twitter_id_str': id_str,
                     'date_creation': date_creation,
-                    'author': self.name,
-                    'body': body,
+                    'author': self.screen,
+                    'body': content[0],
+                    'link': twitter_end + content[1],
                     'likes': likes,
                     'retweets': retweets
                 })
+            except:
+                continue
