@@ -13,6 +13,9 @@ class TwitterScreen(models.Model):
     _name = 'twitter.screen'
     _description = 'Twitter Screen'
 
+    def _get_default_favorite_user_ids(self):
+        return [(6, 0, [self.env.uid])]
+
     screen = fields.Text(
         help='Twitter Screen Search'
     )
@@ -42,6 +45,31 @@ class TwitterScreen(models.Model):
     active = fields.Boolean(
         default=True
     )
+    favorite_user_ids = fields.Many2many(
+        comodel_name='res.users',
+        relation='screen_favorite_user_rel',
+        column1='twitter_screen_id',
+        column2='user_id',
+        default=_get_default_favorite_user_ids,
+        string='Favorite Users'
+    )
+    is_favorite = fields.Boolean(
+        compute='_compute_is_favorite',
+        inverse='_inverse_is_favorite',
+        string='Show Screen on Dashboard',
+        help='Whether this screen should be displayed on the dashboard or not'
+    )
+
+    def _compute_is_favorite(self):
+        for screen in self:
+            screen.is_favorite = self.env.user in screen.favorite_user_ids
+
+    def _inverse_is_favorite(self):
+        sudo_screens = self.sudo()
+        screens_to_favorite = sudo_screens.filtered(lambda screen: self.env.user not in screen.favorite_user_ids)
+        screens_to_favorite.write({'favorite_user_ids': [(4, self.env.uid)]})
+        (sudo_screens - screens_to_favorite).write({'favorite_user_ids': [(3, self.env.uid)]})
+        return True
 
     def count_screen_stats(self):
         api = self._get_api()
@@ -59,7 +87,7 @@ class TwitterScreen(models.Model):
         self.update({
             'name': name,
             'description': description,
-            'image': base64.encodestring(image_data),
+            'image': base64.encodebytes(image_data),
             'count_screen_tweets': count_screen_tweets,
             'count_following': count_following,
             'count_followers': count_followers
@@ -85,34 +113,44 @@ class TwitterScreen(models.Model):
         for rec in self:
             rec._get_tweets()
 
+    @api.model
     def _get_tweets(self):
         api = self._get_api(tweet_mode='extended')
         timeline = api.GetUserTimeline(
             screen_name=self.screen,
             include_rts=False,
-            count=10
+            count=3
         )
         tweets = [i.AsDict() for i in timeline]
         tweet_obj = self.env['twitter.tweet']
-        twitter_end = 'https://t.co/'
+        tweet_attach_obj = self.env['twitter.attachment']
         self.twitter_tweets_ids.unlink()
         for t in tweets:
-            print(t)
             try:
+                keys = t.keys()
                 id_str = t['id_str']
                 date_creation = t['created_at']
-                likes = t['favorite_count']
-                retweets = t['retweet_count']
-                content = t['full_text'].split(twitter_end)
-                tweet_obj.create({
+                likes = t['favorite_count'] if 'favorite_count' in keys else None
+                retweets = t['retweet_count'] if 'retweet_count' in keys else None
+                content = t['full_text']
+                new_tweet = tweet_obj.create({
                     'twitter_screen_id': self.id,
                     'twitter_id_str': id_str,
                     'date_creation': date_creation,
                     'author': self.screen,
-                    'body': content[0],
-                    'link': twitter_end + content[1],
+                    'body': content,
                     'likes': likes,
                     'retweets': retweets
                 })
+                media = t['media'] if 'media' in keys else None
+                new_tweet.twitter_attachment_ids.unlink()
+                for med in media:
+                    k = med.keys()
+                    image_attach = med['media_url_https'] if 'media_url_https' in k else None
+                    image_data = urllib.request.urlopen(image_attach).read()
+                    tweet_attach_obj.create({
+                        'twitter_tweet_id': new_tweet.id,
+                        'image': base64.encodebytes(image_data)
+                    })
             except:
                 continue

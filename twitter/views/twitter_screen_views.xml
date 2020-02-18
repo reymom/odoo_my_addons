@@ -20,6 +20,7 @@
                             </div>
                         </button>
                     </div>
+                    <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                     <field name="active" invisible="1"/>
                     <field name="image" widget="image" class="oe_avatar"/>
@@ -59,13 +60,31 @@
         <field name="name">twitter.screen.tree</field>
         <field name="model">twitter.screen</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-muted="not active">
                 <field name="name"/>
+                <field name="active" invisible="1"/>
                 <field name="screen" string="#"/>
                 <field name="count_following"/>
                 <field name="count_followers"/>
                 <field name="count_screen_tweets"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="twitter_screen_search_view" model="ir.ui.view">
+        <field name="name">twitter.screen.search</field>
+        <field name="model">twitter.screen</field>
+        <field name="arch" type="xml">
+            <search string="Search Screen">
+                <field name="screen"/>
+                <field name="name"/>
+                <field name="is_favorite"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="my_favorites" string="My Favorites" domain="[('favorite_user_ids', 'in', uid)]"/>
+            </search>
         </field>
     </record>
 
@@ -86,6 +105,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">twitter.screen</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="twitter_screen_search_view"/>
+        <field name="context">{'search_default_my_favorites': 1}</field>
         <field name="target">main</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face"> Click create to configure new twitter screens.</p>
