@@ -7,6 +7,8 @@ class TwitterAttachment(models.Model):
 
     twitter_tweet_id = fields.Many2one(
         comodel_name='twitter.tweet',
-        required=True
+        required=True,
+        ondelete='cascade'
     )
     image = fields.Binary()
+    url = fields.Char()

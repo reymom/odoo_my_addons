@@ -3,3 +3,5 @@ saas_twitter_screen_manager,twitter.screen,model_twitter_screen,group_twitter_ma
 saas_twitter_screen_user,twitter.screen,model_twitter_screen,group_twitter_user,1,0,0,0
 saas_twitter_tweet_manager,twitter.tweet,model_twitter_tweet,group_twitter_manager,1,1,1,1
 saas_twitter_tweet_user,twitter.tweet,model_twitter_tweet,group_twitter_user,1,0,0,0
+saas_twitter_attachment_manager,twitter.attachment,model_twitter_attachment,group_twitter_manager,1,1,1,1
+saas_twitter_attachment_user,twitter.attachment,model_twitter_attachment,group_twitter_user,1,0,0,0

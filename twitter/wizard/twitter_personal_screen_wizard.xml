@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="twitter_tweet_wizard_form_view" model="ir.ui.view">
+        <field name="name">twitter.personal.screen.wizard.form</field>
+        <field name="model">twitter.personal.screen.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="twitter_screen_id" class="oe_edit_only" string="#"/>
+                        <h2><field name="twitter_screen_id" required="1"/></h2>
+                    </div>
+                    <group>
+                        <group string="Author Information">
+                            <field name="author"/>
+                            <field name="description"/>
+                            <field name="count_following"/>
+                            <field name="count_followers"/>
+                        </group>
+                        <group string="Update Profile">
+                            <field name="new_image" widget="image" class="oe_avatar"/>
+                            <field name="new_name" placeholder="Left empty if you don't want to update this"/>
+                            <field name="new_description" placeholder="Left empty if you don't want to update this"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="update_profile" type="object" string="Update" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_twitter_personal_screen_wizard" model="ir.actions.act_window">
+        <field name="name">Update Profile</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">twitter.personal.screen.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem action="action_twitter_personal_screen_wizard"
+              id="twitter_personal_screen_wizard_menu"
+              parent="menu_twitter_config"
+              sequence="1"/>
+</odoo>

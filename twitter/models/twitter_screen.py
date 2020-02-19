@@ -12,6 +12,7 @@ _logger = logging.getLogger(__name__)
 class TwitterScreen(models.Model):
     _name = 'twitter.screen'
     _description = 'Twitter Screen'
+    _rec_name = 'screen'
 
     def _get_default_favorite_user_ids(self):
         return [(6, 0, [self.env.uid])]
@@ -29,6 +30,7 @@ class TwitterScreen(models.Model):
     twitter_tweets_ids = fields.One2many(
         comodel_name='twitter.tweet',
         inverse_name='twitter_screen_id',
+        ondelete='cascade'
     )
     count_screen_tweets = fields.Integer(
         string='Total Tweets',
@@ -80,14 +82,14 @@ class TwitterScreen(models.Model):
         name = screen_stats['name']
         description = screen_stats['description'] if 'description' in keys else None
         image_url = screen_stats['profile_image_url'] if 'profile_image_url' in keys else None
-        image_data = urllib.request.urlopen(image_url).read()
-        count_screen_tweets = screen_stats['listed_count'] if 'listed_count' in keys else None
+        image_data = urllib.request.urlopen(image_url).read() if image_url else None
+        count_screen_tweets = screen_stats['statuses_count'] if 'statuses_count' in keys else None
         count_following = screen_stats['friends_count'] if 'friends_count' in keys else None
         count_followers = screen_stats['followers_count'] if 'followers_count' in keys else None
         self.update({
             'name': name,
             'description': description,
-            'image': base64.encodebytes(image_data),
+            'image': base64.encodebytes(image_data) if image_data else None,
             'count_screen_tweets': count_screen_tweets,
             'count_following': count_following,
             'count_followers': count_followers
@@ -119,7 +121,7 @@ class TwitterScreen(models.Model):
         timeline = api.GetUserTimeline(
             screen_name=self.screen,
             include_rts=False,
-            count=3
+            count=6
         )
         tweets = [i.AsDict() for i in timeline]
         tweet_obj = self.env['twitter.tweet']
@@ -150,7 +152,8 @@ class TwitterScreen(models.Model):
                     image_data = urllib.request.urlopen(image_attach).read()
                     tweet_attach_obj.create({
                         'twitter_tweet_id': new_tweet.id,
-                        'image': base64.encodebytes(image_data)
+                        'image': base64.encodebytes(image_data),
+                        'url': image_attach
                     })
             except:
                 continue
