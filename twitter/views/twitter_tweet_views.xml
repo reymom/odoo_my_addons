@@ -8,6 +8,8 @@
                 <field name="twitter_screen_id"/>
                 <field name="author"/>
                 <field name="body"/>
+                <field name="date_creation"/>
+                <field name="relative_time_creation"/>
                 <field name="likes"/>
                 <field name="retweets"/>
             </tree>
@@ -20,7 +22,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="twitter_screen_id" class="o_kanban_test">
                 <field name="twitter_screen_id"/>
-                <field name="date_creation"/>
+                <field name="relative_time_creation"/>
                 <field name="author"/>
                 <field name="body"/>
                 <field name="likes"/>
@@ -39,27 +41,25 @@
                                 <div class="col">
                                     <div class="card-body p-0">
                                         <h3 class="card-title p-1 mt-2 bg-200">
-                                            <field name="twitter_screen_id"/><br/>
-                                            <small class="text-muted"> @<field name="author"/></small>
+                                            <field name="author"/><br/>
+                                            <small class="text-muted">@<field name="twitter_screen_id"/> · <field name="relative_time_creation"/></small>
                                         </h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="oe_kanban_content">
                                 <field name="body_html" widget="html"/>
-                                    <div class="container" style="border:10px solid white;">
-                                        <t t-foreach="record.twitter_attachment_ids.raw_value" t-as="o">
-                                            <div class="row justify-content-center">
-                                                <a href="o.url">
-                                                    <img t-att-src="kanban_image('twitter.attachment', 'image', o)"
-                                                         t-att-alt="o.url"
-                                                         t-att-title="o.url"
-                                                         width="100%" height="100%"
-                                                         class="rounded"/>
-                                                </a>
-                                            </div>
-                                        </t>
-                                    </div>
+                                <div class="container" style="border:10px solid white;">
+                                    <t t-foreach="record.twitter_attachment_ids.raw_value" t-as="o">
+                                        <div class="row justify-content-center">
+                                            <img t-att-src="kanban_image('twitter.attachment', 'image', o)"
+                                                 t-att-alt="o"
+                                                 t-att-title="o"
+                                                 width="100%" height="100%"
+                                                 class="rounded"/>
+                                        </div>
+                                    </t>
+                                </div>
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left">
@@ -141,5 +141,5 @@
               action="action_twitter_tweet_tree_view"
               parent="menu_twitter_tweet"
               groups="twitter.group_twitter_user"
-              sequence="1"/>
+              sequence="2"/>
 </odoo>

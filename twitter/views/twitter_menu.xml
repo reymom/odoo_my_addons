@@ -11,9 +11,14 @@
               parent="menu_twitter"
               groups="twitter.group_twitter_user"
               sequence="1"/>
-    <menuitem id="menu_twitter_tweet"
-              name="Tweets"
+    <menuitem id="menu_twitter_my_screen"
+              name="My Twitter"
               parent="menu_twitter"
-              sequence="2"
+              groups="twitter.group_twitter_manager"
+              sequence="2"/>
+    <menuitem id="menu_twitter_tweet"
+              name="Screens"
+              parent="menu_twitter"
+              sequence="3"
               groups="twitter.group_twitter_user"/>
 </odoo>

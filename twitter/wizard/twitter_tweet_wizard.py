@@ -65,4 +65,6 @@ class TwitterTweetWizard(models.TransientModel):
             media = open('img.png', 'rb')
         else:
             media = None
-        return self.env['twitter.screen']._get_api().PostUpdate(status=self.body, media=media)
+        post = self.env['twitter.screen']._get_api().PostUpdate(status=self.body, media=media)
+        self.twitter_screen_id._get_tweets()
+        return post

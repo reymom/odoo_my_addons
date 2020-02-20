@@ -1,10 +1,12 @@
 import base64
+from datetime import datetime
 import logging
 import urllib.request
 
 import twitter
 from twitter import TwitterError
 from odoo import models, fields, api
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
 
@@ -18,31 +20,45 @@ class TwitterScreen(models.Model):
         return [(6, 0, [self.env.uid])]
 
     screen = fields.Text(
-        help='Twitter Screen Search'
+        string='Reference @',
+        help='Twitter Screen Search, the name for hashtags as @<screen>'
     )
     name = fields.Text(
-        help='Name on Twitter'
+        help='Name on Twitter',
+        readonly=True
     )
     description = fields.Text(
-        help='Official Account Description'
+        help='Official Account Description',
+        readonly=True
     )
-    image = fields.Binary()
+    cron_update = fields.Boolean(
+        string='Update with the Cron',
+        help='If True, the profile and tweets will be updated periodically.',
+        default=False
+    )
+    image = fields.Binary(
+        readonly=True
+    )
     twitter_tweets_ids = fields.One2many(
         comodel_name='twitter.tweet',
         inverse_name='twitter_screen_id',
-        ondelete='cascade'
+        ondelete='cascade',
+        readonly=True
     )
     count_screen_tweets = fields.Integer(
         string='Total Tweets',
         store=True,
+        readonly=True
     )
     count_following = fields.Integer(
         string='Following',
-        store=True
+        store=True,
+        readonly=True
     )
     count_followers = fields.Integer(
         string='Followers',
-        store=True
+        store=True,
+        readonly=True
     )
     active = fields.Boolean(
         default=True
@@ -73,10 +89,16 @@ class TwitterScreen(models.Model):
         (sudo_screens - screens_to_favorite).write({'favorite_user_ids': [(3, self.env.uid)]})
         return True
 
-    def count_screen_stats(self):
+    @api.model
+    def create(self, vals):
+        if vals.get('screen'):
+            self.count_screen_stats(vals=vals)
+        return super(TwitterScreen, self).create(vals)
+
+    def count_screen_stats(self, vals=None):
         api = self._get_api()
         screen_stats = api.GetUser(
-            screen_name=self.screen,
+            screen_name=vals.get('screen') if vals else self.screen,
         ).AsDict()
         keys = screen_stats.keys()
         name = screen_stats['name']
@@ -86,7 +108,8 @@ class TwitterScreen(models.Model):
         count_screen_tweets = screen_stats['statuses_count'] if 'statuses_count' in keys else None
         count_following = screen_stats['friends_count'] if 'friends_count' in keys else None
         count_followers = screen_stats['followers_count'] if 'followers_count' in keys else None
-        self.update({
+        dict = vals if vals else self
+        dict.update({
             'name': name,
             'description': description,
             'image': base64.encodebytes(image_data) if image_data else None,
@@ -121,25 +144,27 @@ class TwitterScreen(models.Model):
         timeline = api.GetUserTimeline(
             screen_name=self.screen,
             include_rts=False,
-            count=6
+            count=15
         )
         tweets = [i.AsDict() for i in timeline]
         tweet_obj = self.env['twitter.tweet']
+        tweet_date_format = '%a %b %d %H:%M:%S %z %Y'
         tweet_attach_obj = self.env['twitter.attachment']
         self.twitter_tweets_ids.unlink()
         for t in tweets:
             try:
                 keys = t.keys()
                 id_str = t['id_str']
-                date_creation = t['created_at']
+                date_str = t['created_at']
                 likes = t['favorite_count'] if 'favorite_count' in keys else None
                 retweets = t['retweet_count'] if 'retweet_count' in keys else None
                 content = t['full_text']
                 new_tweet = tweet_obj.create({
                     'twitter_screen_id': self.id,
                     'twitter_id_str': id_str,
-                    'date_creation': date_creation,
-                    'author': self.screen,
+                    'date_creation': datetime.strptime(
+                        date_str, tweet_date_format).strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                    'author': self.name,
                     'body': content,
                     'likes': likes,
                     'retweets': retweets
@@ -157,3 +182,10 @@ class TwitterScreen(models.Model):
                     })
             except:
                 continue
+
+    @api.model
+    def cron_twitter_screens(self):
+        screens = self.env['twitter.screen'].search([('cron_update', '=', True)])
+        for screen in screens:
+            screen.count_screen_stats()
+            screen._get_tweets()

@@ -8,10 +8,12 @@
                 <sheet>
                     <field name="image_author" widget="image" class="oe_avatar"/>
                     <div class="oe_title">
-                        <label for="author" class="oe_edit_only"/>
-                        <h1><field name="author"/></h1>
-                        <label for="twitter_screen_id" class="oe_edit_only" string="#"/>
-                        <h2><field name="twitter_screen_id" required="1"/></h2>
+                        <group>
+                            <label for="author" class="oe_edit_only"/>
+                            <h1><field name="author"/></h1>
+                            <label for="twitter_screen_id" class="oe_edit_only" string="@"/>
+                            <h2><field name="twitter_screen_id" required="1"/></h2>
+                        </group>
                     </div>
                     <group>
                         <group string="Author Information">
@@ -20,8 +22,8 @@
                             <field name="count_followers"/>
                         </group>
                         <group string="Message">
+                            <field name="media_image" string="Media" widget="image" class="oe_avatar"/>
                             <field name="body" string="Body"/>
-                            <field name="media_image" string="Pic"/>
                         </group>
                     </group>
                     <footer>
@@ -44,6 +46,6 @@
 
     <menuitem action="action_twitter_tweet_wizard"
               id="twitter_tweet_wizard_menu"
-              parent="menu_twitter_tweet"
+              parent="menu_twitter_my_screen"
               sequence="3"/>
 </odoo>

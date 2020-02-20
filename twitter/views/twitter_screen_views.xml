@@ -27,12 +27,13 @@
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name"/></h1>
-                        <label for="screen" class="oe_edit_only" string="#"/>
+                        <label for="screen" class="oe_edit_only" string="Reference @"/>
                         <h2><field name="screen" required="1"/></h2>
                     </div>
                     <group>
                         <group>
                             <field name="description"/>
+                            <field name="cron_update"/>
                             <field name="count_following"/>
                             <field name="count_followers"/>
                         </group>
@@ -45,6 +46,7 @@
                             <field name="twitter_tweets_ids" widget="one2many">
                                 <tree>
                                     <field name="body"/>
+                                    <field name="relative_time_creation"/>
                                     <field name="likes"/>
                                     <field name="retweets"/>
                                 </tree>
@@ -63,7 +65,7 @@
             <tree decoration-muted="not active">
                 <field name="name"/>
                 <field name="active" invisible="1"/>
-                <field name="screen" string="#"/>
+                <field name="screen"/>
                 <field name="count_following"/>
                 <field name="count_followers"/>
                 <field name="count_screen_tweets"/>

@@ -52,15 +52,18 @@ class TwitterPersonalScreenWizard(models.TransientModel):
     new_image = fields.Binary()
 
     def update_profile(self):
-        api = self.env['twitter.screen']._get_api()
+        screen_obj = self.env['twitter.screen']
+        api = screen_obj._get_api()
         name = self.new_name or None
         description = self.new_description or None
         if self.new_image:
             im = Image.open(BytesIO(base64.b64decode(self.new_image)))
-            im.save('img.png', 'PNG')
-            image = open('img.png', 'rb')
+            im.save('img.png')
+            image='img.png'
         else:
             image = None
+
         api.UpdateProfile(name=name, description=description)
         api.UpdateImage(image=image)
+        self.twitter_screen_id.count_screen_stats()
         return api
