@@ -3,7 +3,7 @@ from io import BytesIO
 from PIL import Image
 
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class TwitterTweetWizard(models.TransientModel):
@@ -19,11 +19,7 @@ class TwitterTweetWizard(models.TransientModel):
         if auth_user:
             return auth_user
         else:
-            auth_user = screen_obj.create({
-                'screen': screen,
-            })
-            auth_user.count_screen_stats()
-            return auth_user
+            raise UserError('Screen associated to the API keys is not present in the records.')
 
     twitter_screen_id = fields.Many2one(
         comodel_name='twitter.screen',

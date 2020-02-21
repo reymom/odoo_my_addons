@@ -38,6 +38,10 @@ class TwitterTweet(models.Model):
         related='twitter_screen_id.favorite_user_ids'
     )
 
+    _sql_constraints = [
+        ('twitter_id', 'unique( twitter_id_str )', 'Id must be unique.')
+    ]
+
     @api.depends('twitter_id_str')
     def _compute_display_name(self):
         for rec in self:
@@ -88,7 +92,3 @@ class TwitterTweet(models.Model):
                 link_html = '<a target="_blank" href="' + link_user + '">@' + user + '</a> '
                 body_html = re.sub('@' + user + ' ', link_html, body_html)
             rec.body_html = body_html
-
-    _sql_constraints = [
-        ('twitter_id', 'unique( twitter_id_str )', 'Id must be unique.')
-    ]

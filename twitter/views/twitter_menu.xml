@@ -5,20 +5,4 @@
               groups="group_twitter_manager,group_twitter_user"
               web_icon="twitter,static/description/icon.png"
               sequence="99"/>
-    <menuitem id="menu_twitter_screen_control"
-              name="Control"
-              action="action_twitter_tweet_kanban"
-              parent="menu_twitter"
-              groups="twitter.group_twitter_user"
-              sequence="1"/>
-    <menuitem id="menu_twitter_my_screen"
-              name="My Twitter"
-              parent="menu_twitter"
-              groups="twitter.group_twitter_manager"
-              sequence="2"/>
-    <menuitem id="menu_twitter_tweet"
-              name="Screens"
-              parent="menu_twitter"
-              sequence="3"
-              groups="twitter.group_twitter_user"/>
 </odoo>

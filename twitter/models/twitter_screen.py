@@ -5,7 +5,8 @@ import urllib.request
 
 import twitter
 from twitter import TwitterError
-from odoo import models, fields, api
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
@@ -19,9 +20,14 @@ class TwitterScreen(models.Model):
     def _get_default_favorite_user_ids(self):
         return [(6, 0, [self.env.uid])]
 
-    screen = fields.Text(
+    screen = fields.Char(
         string='Reference @',
         help='Twitter Screen Search, the name for hashtags as @<screen>'
+    )
+    my_screen = fields.Boolean(
+        string='It is my screen',
+        default=False,
+        readonly=True
     )
     name = fields.Text(
         help='Name on Twitter',
@@ -78,6 +84,21 @@ class TwitterScreen(models.Model):
         help='Whether this screen should be displayed on the dashboard or not'
     )
 
+    _sql_constraints = [
+        ('unique_screen', 'unique( screen )', 'Screen is a unique Twitter account.')
+    ]
+
+    @api.model
+    def create(self, vals):
+        if vals.get('screen'):
+            self.count_screen_stats(external_dict=vals)
+        return super(TwitterScreen, self).create(vals)
+
+    def unlink(self):
+        if True in self.mapped('my_screen'):
+            raise UserError(_('You are trying to delete your own Screen!'))
+        return super(TwitterScreen, self).unlink()
+
     def _compute_is_favorite(self):
         for screen in self:
             screen.is_favorite = self.env.user in screen.favorite_user_ids
@@ -88,35 +109,6 @@ class TwitterScreen(models.Model):
         screens_to_favorite.write({'favorite_user_ids': [(4, self.env.uid)]})
         (sudo_screens - screens_to_favorite).write({'favorite_user_ids': [(3, self.env.uid)]})
         return True
-
-    @api.model
-    def create(self, vals):
-        if vals.get('screen'):
-            self.count_screen_stats(vals=vals)
-        return super(TwitterScreen, self).create(vals)
-
-    def count_screen_stats(self, vals=None):
-        api = self._get_api()
-        screen_stats = api.GetUser(
-            screen_name=vals.get('screen') if vals else self.screen,
-        ).AsDict()
-        keys = screen_stats.keys()
-        name = screen_stats['name']
-        description = screen_stats['description'] if 'description' in keys else None
-        image_url = screen_stats['profile_image_url'] if 'profile_image_url' in keys else None
-        image_data = urllib.request.urlopen(image_url).read() if image_url else None
-        count_screen_tweets = screen_stats['statuses_count'] if 'statuses_count' in keys else None
-        count_following = screen_stats['friends_count'] if 'friends_count' in keys else None
-        count_followers = screen_stats['followers_count'] if 'followers_count' in keys else None
-        dict = vals if vals else self
-        dict.update({
-            'name': name,
-            'description': description,
-            'image': base64.encodebytes(image_data) if image_data else None,
-            'count_screen_tweets': count_screen_tweets,
-            'count_following': count_following,
-            'count_followers': count_followers
-        })
 
     def _get_api(self, tweet_mode=None):
         try:
@@ -132,7 +124,30 @@ class TwitterScreen(models.Model):
             api.VerifyCredentials()
             return api
         except:
-            return TwitterError
+            raise TwitterError
+
+    def count_screen_stats(self, external_dict=None):
+        api = self._get_api()
+        screen_stats = api.GetUser(
+            screen_name=external_dict.get('screen') if external_dict else self.screen,
+        ).AsDict()
+        keys = screen_stats.keys()
+        name = screen_stats['name']
+        description = screen_stats['description'] if 'description' in keys else None
+        image_url = screen_stats['profile_image_url'] if 'profile_image_url' in keys else None
+        image_data = urllib.request.urlopen(image_url).read() if image_url else None
+        count_screen_tweets = screen_stats['statuses_count'] if 'statuses_count' in keys else None
+        count_following = screen_stats['friends_count'] if 'friends_count' in keys else None
+        count_followers = screen_stats['followers_count'] if 'followers_count' in keys else None
+        dict = external_dict if external_dict else self
+        dict.update({
+            'name': name,
+            'description': description,
+            'image': base64.encodebytes(image_data) if image_data else None,
+            'count_screen_tweets': count_screen_tweets,
+            'count_following': count_following,
+            'count_followers': count_followers
+        })
 
     def action_get_tweets(self):
         for rec in self:
@@ -141,10 +156,11 @@ class TwitterScreen(models.Model):
     @api.model
     def _get_tweets(self):
         api = self._get_api(tweet_mode='extended')
+        number_of_tweets = self.env['ir.config_parameter'].sudo().get_param('media_connector.twitter_number_last_tweets')
         timeline = api.GetUserTimeline(
             screen_name=self.screen,
             include_rts=False,
-            count=15
+            count=number_of_tweets
         )
         tweets = [i.AsDict() for i in timeline]
         tweet_obj = self.env['twitter.tweet']
@@ -183,7 +199,6 @@ class TwitterScreen(models.Model):
             except:
                 continue
 
-    @api.model
     def cron_twitter_screens(self):
         screens = self.env['twitter.screen'].search([('cron_update', '=', True)])
         for screen in screens:

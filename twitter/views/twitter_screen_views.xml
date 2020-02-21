@@ -62,8 +62,10 @@
         <field name="name">twitter.screen.tree</field>
         <field name="model">twitter.screen</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="not active">
+            <tree decoration-muted="not active" decoration-bf="my_screen">
                 <field name="name"/>
+                <field name="description"/>
+                <field name="my_screen" invisible="1"/>
                 <field name="active" invisible="1"/>
                 <field name="screen"/>
                 <field name="count_following"/>
@@ -115,10 +117,48 @@
         </field>
     </record>
 
+    <record id="action_my_twitter_screen_form" model="ir.actions.act_window">
+        <field name="name">My Twitter</field>
+        <field name="res_model">twitter.screen</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('my_screen', '=', True)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="twitter_screen_form_view"/>
+        <field name="target">main</field>
+    </record>
+
+    <!--In the main menu, My Twitter menu have submenus to manage the personal twitter account -->
+    <menuitem id="menu_twitter_my_screen"
+              name="My Twitter"
+              parent="menu_twitter"
+              groups="twitter.group_twitter_manager"
+              sequence="2"/>
+
+    <menuitem id="menu_twitter_my_screen_form"
+              name="My Twitter"
+              action="action_my_twitter_screen_form"
+              parent="menu_twitter_my_screen"
+              sequence="1"/>
+
+    <!--In the main menu, Screens menu have submenus to manage the twitter registries -->
+    <menuitem id="menu_twitter_tweet"
+              name="Screens"
+              parent="menu_twitter"
+              sequence="3"
+              groups="twitter.group_twitter_user"/>
+
+    <!-- In the Screens menu, Screens submenu shows the Screens registered -->
     <menuitem id="menu_twitter_screen"
               name="Screens"
               action="action_twitter_screen_tree"
               parent="menu_twitter_tweet"
-              groups="twitter.group_twitter_user"
               sequence="1"/>
+
+    <!-- In the Screens menu, Tweets submenu shows the Tweets registered -->
+    <menuitem id="menu_twitter_tweet_action"
+              name="Tweets"
+              action="action_twitter_tweet_tree_view"
+              parent="menu_twitter_tweet"
+              groups="twitter.group_twitter_user"
+              sequence="2"/>
 </odoo>

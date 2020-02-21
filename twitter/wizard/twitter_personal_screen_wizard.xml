@@ -46,5 +46,5 @@
     <menuitem action="action_twitter_personal_screen_wizard"
               id="twitter_personal_screen_wizard_menu"
               parent="menu_twitter_my_screen"
-              sequence="1"/>
+              sequence="2"/>
 </odoo>

@@ -136,10 +136,11 @@
         </field>
     </record>
 
-    <menuitem id="menu_twitter_tweet_action"
-              name="Tweets"
-              action="action_twitter_tweet_tree_view"
-              parent="menu_twitter_tweet"
+    <!-- In the main menu, control menu displays the kanban with tweets grouped in columns by screen -->
+    <menuitem id="menu_twitter_screen_control"
+              name="Control"
+              action="action_twitter_tweet_kanban"
+              parent="menu_twitter"
               groups="twitter.group_twitter_user"
-              sequence="2"/>
+              sequence="1"/>
 </odoo>

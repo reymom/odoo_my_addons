@@ -28,6 +28,9 @@
                                         <field name="twitter_access_token_key" nolabel="1"/>
                                         <label for="twitter_access_token_secret" class="col-12 col-lg-12 o_light_label"/>
                                         <field name="twitter_access_token_secret" password="True" nolabel="1"/>
+                                        <hr class="divider"/>
+                                        <label for="twitter_number_last_tweets" class="col-6 col-lg-6 o_light_label"/>
+                                        <field name="twitter_number_last_tweets" nolabel="1"/>
                                     </div>
                                 </div>
                             </div>
