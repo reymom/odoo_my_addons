@@ -1,0 +1,620 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* twitter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-25 13:33+0000\n"
+"PO-Revision-Date: 2020-02-25 13:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_kanban_view
+msgid "<i class=\"fa fa-heart-o\" role=\"img\" aria-label=\"Likes\"/>"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_kanban_view
+msgid "<i class=\"fa fa-retweet\" role=\"img\" aria-label=\"Retweets\"/>"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "<span class=\"o_stat_text\">Tweets</span>"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__active
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_search_view
+msgid "Active"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__module_twitter
+msgid "Allows you to synchronize with Twitter"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_search_view
+msgid "Archived"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__author
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_search_view
+msgid "Author"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Author Information"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__body
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__body
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Body"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__body_html
+msgid "Body Html"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_delete_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.actions.act_window,help:twitter.action_twitter_screen_tree
+msgid "Click create to configure new twitter screens."
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: twitter
+#: model:ir.ui.menu,name:twitter.menu_twitter_config
+msgid "Configuration"
+msgstr ""
+
+#. module: twitter
+#: model:ir.ui.menu,name:twitter.menu_twitter_screen_control
+msgid "Control"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "Count Stats"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__create_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__create_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__create_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__create_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__create_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__create_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__create_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__create_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__create_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__create_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__date_creation
+msgid "Date Creation"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_delete_wizard_form_view
+msgid "Delete Selected"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_delete_tweet_wizard
+#: model:ir.ui.menu,name:twitter.twitter_tweet_delete_wizard_menu
+msgid "Delete Tweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__description
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__description
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__description_author
+msgid "Description"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__display_name
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__display_name
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__display_name
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__display_name
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__display_name
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__favorite_user_ids
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__favorite_user_ids
+msgid "Favorite Users"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__count_followers
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__count_followers
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__count_followers
+msgid "Followers"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__count_following
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__count_following
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__count_following
+msgid "Following"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_search_view
+msgid "Group By"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__id
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__id
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.constraint,message:twitter.constraint_twitter_tweet_twitter_id
+msgid "Id must be unique."
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_twitter_screen__cron_update
+msgid "If True, the profile and tweets will be updated periodically."
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__image
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__image
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__image
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__image_author
+msgid "Image"
+msgstr ""
+
+#. module: twitter
+#: code:addons/twitter/models/res_config_settings.py:0
+#: code:addons/twitter/models/res_config_settings.py:0
+#, python-format
+msgid "Incorrect Keys."
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__my_screen
+msgid "It is my screen"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment____last_update
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard____last_update
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen____last_update
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet____last_update
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard____last_update
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__write_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__write_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__write_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__write_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__write_uid
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__write_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__write_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__write_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__write_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__write_date
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+msgid "Left empty if you don't want to update this"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__likes
+msgid "Likes"
+msgstr ""
+
+#. module: twitter
+#: model:res.groups,name:twitter.group_twitter_manager
+msgid "Manager"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Media"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__media_image
+msgid "Media Image"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Message"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__module_twitter
+msgid "Module Twitter"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_search_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_search_view
+msgid "My Favorites"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_my_twitter_screen_form
+#: model:ir.ui.menu,name:twitter.menu_twitter_my_screen
+#: model:ir.ui.menu,name:twitter.menu_twitter_my_screen_form
+msgid "My Twitter"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__author
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__name
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__author
+msgid "Name"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_twitter_personal_screen_wizard__author
+#: model:ir.model.fields,help:twitter.field_twitter_screen__name
+#: model:ir.model.fields,help:twitter.field_twitter_tweet_wizard__author
+msgid "Name on Twitter"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__new_description
+msgid "New Description"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__new_image
+msgid "New Image"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__new_name
+msgid "New Name"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_twitter_personal_screen_wizard__description
+#: model:ir.model.fields,help:twitter.field_twitter_screen__description
+#: model:ir.model.fields,help:twitter.field_twitter_tweet_wizard__description_author
+msgid "Official Account Description"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "Post"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_tweet_wizard
+#: model:ir.ui.menu,name:twitter.twitter_tweet_wizard_menu
+msgid "Post Tweet"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__screen
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "Reference @"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__retweets
+msgid "Retweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.constraint,message:twitter.constraint_twitter_screen_unique_screen
+msgid "Screen is a unique Twitter account."
+msgstr ""
+
+#. module: twitter
+#: model:ir.ui.menu,name:twitter.menu_twitter_screen
+#: model:ir.ui.menu,name:twitter.menu_twitter_tweet
+msgid "Screens"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_search_view
+msgid "Search Screen"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_search_view
+msgid "Search Tweet"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_delete_wizard_form_view
+msgid "Select Tweets to Delete"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_config_settings
+#: model:ir.ui.menu,name:twitter.menu_action_twitter_config_settings
+msgid "Settings"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__is_favorite
+msgid "Show Screen on Dashboard"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.server,name:twitter.action_twitter_synchronize
+msgid "Synchronize Last Tweets"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.actions.act_window,help:twitter.action_twitter_tweet_tree_view
+#: model_terms:ir.actions.act_window,help:twitter.action_twitter_tweet_tree_view_screen
+msgid "Synchronize the screen desired to have its tweets here."
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.actions.act_window,help:twitter.action_twitter_tweet_kanban
+msgid "Synchronize tweets in the action of the Screens."
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.res_config_settings_view_form
+msgid "Synchronize, Visualize and Manage Tweets."
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__twitter_number_last_tweets
+msgid "The number of Last Tweets to Synchronize"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__relative_time_creation
+msgid "Time Ago"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__count_screen_tweets
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "Total Tweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_tweet_tree_view
+#: model:ir.actions.act_window,name:twitter.action_twitter_tweet_tree_view_screen
+#: model:ir.ui.menu,name:twitter.menu_twitter_tweet_action
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "Tweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_screen_tree
+#: model:ir.actions.act_window,name:twitter.action_twitter_tweet_kanban
+#: model:ir.module.category,name:twitter.module_category_twitter
+#: model:ir.ui.menu,name:twitter.menu_twitter
+#: model_terms:ir.ui.view,arch_db:twitter.res_config_settings_view_form
+msgid "Twitter"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__twitter_access_token_key
+msgid "Twitter API Access Token Key"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__twitter_access_token_secret
+msgid "Twitter API Access Token Secret"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__twitter_consumer_key
+msgid "Twitter API Consumer Key"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_res_config_settings__twitter_consumer_secret
+msgid "Twitter API Consumer Secret"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__twitter_access_token_key
+msgid "Twitter Access Token Key"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__twitter_access_token_secret
+msgid "Twitter Access Token Secret"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_attachment
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__twitter_attachment_ids
+msgid "Twitter Attachment"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__twitter_consumer_key
+msgid "Twitter Consumer Key"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__twitter_consumer_secret
+msgid "Twitter Consumer Secret"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__twitter_id_str
+msgid "Twitter Id Str"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_res_config_settings__twitter_number_last_tweets
+msgid "Twitter Number Last Tweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_screen
+#: model:ir.model.fields,field_description:twitter.field_twitter_personal_screen_wizard__twitter_screen_id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet__twitter_screen_id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__twitter_screen_id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_wizard__twitter_screen_id
+msgid "Twitter Screen"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_screen_form_view
+msgid "Twitter Screen Form"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_twitter_screen__screen
+msgid "Twitter Screen Search, the name for hashtags as @<screen>"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.server,name:twitter.ir_cron_twitter_screens_ir_actions_server
+#: model:ir.cron,cron_name:twitter.ir_cron_twitter_screens
+#: model:ir.cron,name:twitter.ir_cron_twitter_screens
+msgid "Twitter Screen: Update Profile Info and Tweets"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_tweet
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__twitter_tweet_id
+#: model:ir.model.fields,field_description:twitter.field_twitter_tweet_delete_wizard__twitter_tweet_ids
+msgid "Twitter Tweet"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__twitter_tweets_ids
+msgid "Twitter Tweets"
+msgstr ""
+
+#. module: twitter
+#: code:addons/twitter/wizard/twitter_tweet_wizard.py:0
+#, python-format
+msgid "Twitter accepts a maximum of 280 characters!"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+msgid "Update"
+msgstr ""
+
+#. module: twitter
+#: model:ir.actions.act_window,name:twitter.action_twitter_personal_screen_wizard
+#: model:ir.ui.menu,name:twitter.twitter_personal_screen_wizard_menu
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+msgid "Update Profile"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_screen__cron_update
+msgid "Update with the Cron"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,field_description:twitter.field_twitter_attachment__url
+msgid "Url"
+msgstr ""
+
+#. module: twitter
+#: model:res.groups,name:twitter.group_twitter_user
+msgid "User"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model.fields,help:twitter.field_twitter_screen__is_favorite
+msgid "Whether this screen should be displayed on the dashboard or not"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_tweet_delete_wizard
+msgid "Wizard: Delete a Tweet"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_tweet_wizard
+msgid "Wizard: Post a Tweet"
+msgstr ""
+
+#. module: twitter
+#: model:ir.model,name:twitter.model_twitter_personal_screen_wizard
+msgid "Wizard: Update my Profile"
+msgstr ""
+
+#. module: twitter
+#: code:addons/twitter/models/twitter_screen.py:0
+#, python-format
+msgid "You are trying to delete your own Screen!"
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.actions.act_window,help:twitter.action_my_twitter_screen_form
+msgid "You have not your Twitter Screen Synchronized."
+msgstr ""
+
+#. module: twitter
+#: code:addons/twitter/models/res_config_settings.py:0
+#, python-format
+msgid "You have to declare keys to retrieve information from Twitter."
+msgstr ""
+
+#. module: twitter
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_personal_screen_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_delete_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:twitter.twitter_tweet_wizard_form_view
+msgid "or"
+msgstr ""
