@@ -1,14 +1,15 @@
 Twitter Connector
 -----------------
 
-The App connects with Twitter, allowing you to manage you account and display you favourites Tweets.
+The App connects with Twitter, allowing you to manage your account and display your favourite Tweets.
 
 ![Alt text](static/images/MyTwitterMenu.png?raw=true "Menu")
 
-This has been done in order to practice and get used to Odoo's programming tools, not to imitate the premium app built by Odoo called Social Marketing, which
-certainly have a kinder design and more functionality. Nevertheless it is very complete and integrates lots
-of features, so it would be useful for example for a tutorial. For building it, I have used the library
-[python-twitter](https://github.com/bear/python-twitter), which helps me not to overload the code
+This has been done in order to practice and get used to Odoo's programming tools, not to imitate the premium 
+app built by Odoo called Social Marketing, which certainly has a kinder design and more functionality. 
+Nevertheless it is very complete and integrates many features, so it would be useful for example for a tutorial. 
+For building it, I have used the library
+[python-twitter](https://github.com/bear/python-twitter), which helped me not to overload the code
 writing all the methods from raw and it is itself pretty good. So thank you and congratulations 
 [jeremylow](https://github.com/jeremylow) for this library.
 
@@ -38,7 +39,7 @@ creation, but you can update them later by pressing the button **Count Stats** i
 For all records you can as well execute the action Synchronize Last Tweets to take the 
 last number of tweets specified in the configuration.
 
-This action will be executed automatically by a cron every # days (by default every day, you just change it in the chron form)
+This action will be executed automatically by a chron every # days (by default every day, you just change it in the chron form)
 in the screens you have selected the field **Update With the Chron**.
 
 Your Twitter Account
